@@ -19,24 +19,36 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
 
     const fetchData = () => {
         axios.get('http://localhost:3000/c/colaboradores')
-          .then((response) => {
-            setTableData(response.data);
-          })
-          .catch((error) => {
-            setError(error);
-          });
-      };
+            .then((response) => {
+                setTableData(response.data);
 
-      useEffect(() => {
+
+            })
+            .catch((error) => {
+                setError(error);
+            });
+    };
+
+    useEffect(() => {
         fetchData();
-      }, [refresh]);
+    }, [refresh]);
 
 
 
     const filteredData = tableData.filter((colaborador) =>
         colaborador.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
         colaborador.cargo.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+    );
+
+    const handleDelete = async (id_colaborador) => {
+        const confirmDelete = window.confirm('Deseja realmente deletar este colaborador?');
+        if (confirmDelete) try {
+            await axios.delete(`http://localhost:3000/c/colaboradores/${id_colaborador}`);
+            fetchData();
+        } catch (error) {
+            console.error('erro ao deletar colaborador em "Tables"', error);
+        }
+    }
 
     return (
         <div className=" mt-5">
@@ -45,6 +57,7 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                 <thead>
                     <tr>
                         <th></th>
+                        <th>  {/* id */}</th>
                         <th>Nome</th>
                         <th>Cargo</th>
                         <th>Especialidade</th>
@@ -54,8 +67,9 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                 <tbody>
                     {filteredData.map((colaborador) => {
                         return (
-                            <tr key={colaborador.colaborador_id}>
-                                <td className='px-20'></td>
+                            <tr key={colaborador.id_colaborador}>
+                                <td></td>
+                                <td className='px-20'> {/* {colaborador.id_colaborador} */}</td>
                                 <td>{colaborador.nome}</td>
                                 <td>{colaborador.cargo}</td>
                                 <td>
@@ -68,11 +82,9 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                                     </div>
                                 </td>
                                 <td className="px-10">
-                                    <button className="btn rounded w-20 btn-primary mx-3" onClick={() => handleOpen('mode2')}>Editar
-                                    </button>
+                                    <button className="btn rounded w-20 btn-primary mx-3" onClick={() => handleOpen('mode2', colaborador)}>Editar</button>
 
-                                    <button className="btn rounded w-20 mx-3 btn-error">Deletar
-                                    </button>
+                                    <button className="btn rounded w-20 mx-3 btn-error" onClick={() => handleDelete(colaborador.id_colaborador)}>Deletar</button>
                                 </td>
                             </tr>
                         )

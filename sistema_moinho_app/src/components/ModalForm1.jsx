@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ModalForm1({ isOpen, onClose, mode, OnSubmit, colaboradorData }) {
 
@@ -27,8 +27,22 @@ const handleSubmit = async (e) => {
         console.log('erro ao adicionar colaborador em "ModalForm1"');
         {/*setError('Erro ao adicionar colaborador');*/}
     }
-    
 }
+
+useEffect(() => {
+    if (mode === 'mode2') {
+        console.log('mode2 ModalForm1');
+        setNome(colaboradorData.nome);
+        setCargo(colaboradorData.cargo);
+        {/*setEspecialidades(colaboradorData.especialidades);*/}
+    } else {
+        setNome('');
+        setCargo('');
+        {/*setEspecialidades('');*/}
+    }
+
+}, [mode, colaboradorData]);
+
 
     return (
         <dialog id="my_modal_3" className="modal" open={isOpen}>

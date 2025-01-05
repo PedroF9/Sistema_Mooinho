@@ -13,7 +13,9 @@ const [searchTerm, setSearchTerm] = useState('');
 const [colaboradorData, setColaboradorData] = useState(null);
 const [refresh, setRefresh] = useState(false);
 
-const handleOpen = (mode) => {
+const handleOpen = (mode, colaborador) => {
+  console.log('colaborador id:', colaborador.id_colaborador);
+  setColaboradorData(colaborador);
   setIsOpen(true);
   setModalMode(mode);
 }
@@ -22,6 +24,8 @@ const handleSubmit = async (newColaboradorData) => {
   if (modalMode === 'mode1') {
 
     try {
+      
+      console.log('mode1 App');//new
       await axios.post('http://localhost:3000/c/colaboradores', newColaboradorData);
       console.log('Colaborador adicionado com sucesso', Response.data);
       setRefresh(!refresh);
@@ -29,11 +33,19 @@ const handleSubmit = async (newColaboradorData) => {
       console.error('erro ao adicionar colaboradorem "App"', error);
     }
 
-    console.log('mode1 App');//new
+    
   } else{
-
-
     console.log('mode2 App');//edit
+
+    try {
+      await axios.put(`http://localhost:3000/c/colaboradores/${colaboradorData.id_colaborador}`, newColaboradorData);
+      console.log('Colaborador editado com sucesso', Response.data);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('erro ao editar colaborador em "App"', error);
+
+    }
+
   }
 }
 
