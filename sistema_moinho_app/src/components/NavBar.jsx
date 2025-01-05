@@ -11,9 +11,9 @@ export default function NavBar({ onOpen, setSearchTerm }) {
     })
 
 
-    const handleSearch = () => {
+    {/*const handleSearch = () => {
         setSearchTerm(inputValue);
-      };
+      };*/}
 
     return (
 

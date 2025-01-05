@@ -1,14 +1,32 @@
 import { useState } from "react";
 
-export default function ModalForm1({ isOpen, onClose, mode, onSubmit }) {
+export default function ModalForm1({ isOpen, onClose, mode, OnSubmit, colaboradorData }) {
 
 const [nome, setNome] = useState ('');
 const [cargo, setCargo] = useState ('');
-const [especialidades, setEspecialidades] = useState ('');
+{/*const [error, setError] = useState('');*/}
+{/*const [especialidades, setEspecialidades] = useState ('');*/}
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-    onClose(); 
+
+    if (!nome || !cargo) {
+       {/* setError('Todos os campos são obrigatórios');*/}
+        return;
+      }
+    try {
+     
+        const colaboradorData ={nome, cargo};
+        await OnSubmit(colaboradorData);
+        console.log('succes on modalForm1');
+        {/*setError('');*/}
+        onClose();
+
+    } catch (error) {
+        console.error('erro ao adicionar colaborador em "ModalForm1"', error);
+        console.log('erro ao adicionar colaborador em "ModalForm1"');
+        {/*setError('Erro ao adicionar colaborador');*/}
+    }
     
 }
 
@@ -23,12 +41,13 @@ const handleSubmit = (e) => {
                     <input id="nomeForm" type="text" placeholder="Nome Colaborador" className="input input-bordered w-full max-w-xs my-2" value={nome} onChange={(e) => setNome(e.target.value)} />
 
                     <input id="CargoForm" type="text" placeholder="Cargo" className="input input-bordered w-full max-w-xs" value={cargo} onChange={(e) => setCargo(e.target.value)} />
-                    <select className="select select-bordered w-full max-w-xs" value={especialidades} onChange={(e) => setEspecialidades(e.target.value)}>
+
+                   {/* <select className="select select-bordered w-full max-w-xs" value={especialidades} onChange={(e) => setEspecialidades(e.target.value)}>
                         <option disabled selected>Especialidades</option>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
-                    </select>
+                    </select>*/}
                     <button className="btn btn-outline m-2" onClick={onClose}>Enviar</button>
                 </form>
                 {/* <p className="py-1">Mode: {mode}</p>

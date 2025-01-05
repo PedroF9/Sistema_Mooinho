@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function Tables({ handleOpen, searchTerm }) {
+export default function Tables({ handleOpen, searchTerm, refresh }) {
 
     const [tableData, setTableData] = useState([]);
     const [error, setError] = useState(null);
@@ -15,6 +15,23 @@ export default function Tables({ handleOpen, searchTerm }) {
                 setError(error);
             })
     }, []);
+
+
+    const fetchData = () => {
+        axios.get('http://localhost:3000/c/colaboradores')
+          .then((response) => {
+            setTableData(response.data);
+          })
+          .catch((error) => {
+            setError(error);
+          });
+      };
+
+      useEffect(() => {
+        fetchData();
+      }, [refresh]);
+
+
 
     const filteredData = tableData.filter((colaborador) =>
         colaborador.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
