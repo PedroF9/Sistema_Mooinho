@@ -22,13 +22,13 @@ const handleOpen = (mode, colaborador) => {
   
 const handleSubmit = async (newColaboradorData) => {
   if (modalMode === 'mode1') {
-
+    console.log('mode1 App');//new
     try {
-      
-      console.log('mode1 App');//new
+     
       await axios.post('http://localhost:3000/c/colaboradores', newColaboradorData);
       console.log('Colaborador adicionado com sucesso', Response.data);
       setRefresh(!refresh);
+
     } catch (error) {
       console.error('erro ao adicionar colaboradorem "App"', error);
     }
@@ -39,7 +39,7 @@ const handleSubmit = async (newColaboradorData) => {
 
     try {
       await axios.put(`http://localhost:3000/c/colaboradores/${colaboradorData.id_colaborador}`, newColaboradorData);
-      console.log('Colaborador editado com sucesso', Response.data);
+      console.log('Colaborador editado com sucesso', colaboradorData.id_colaborador);
       setRefresh(!refresh);
     } catch (error) {
       console.error('erro ao editar colaborador em "App"', error);
@@ -53,7 +53,7 @@ const handleSubmit = async (newColaboradorData) => {
   return (
     
     <>
-    <NavBar onOpen = {() => handleOpen('mode1')} setSearchTerm={setSearchTerm}/>
+    <NavBar OnOpen = {() => handleOpen('mode1', '')} setSearchTerm={setSearchTerm}/>
     <h1 className="text-3xl font-bold">
       Teste_app!
     </h1>

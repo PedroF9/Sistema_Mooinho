@@ -4,18 +4,8 @@ import { useEffect, useState } from 'react';
 export default function Tables({ handleOpen, searchTerm, refresh }) {
 
     const [tableData, setTableData] = useState([]);
+    const [especialidadesData, setEspecialidadesData] = useState({});
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/c/colaboradores')
-            .then((response) => {
-                setTableData(response.data);
-            })
-            .catch((error) => {
-                setError(error);
-            })
-    }, []);
-
 
     const fetchData = () => {
         axios.get('http://localhost:3000/c/colaboradores')
@@ -29,10 +19,27 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
             });
     };
 
+    const fetchEspecialidades = async (id_colaborador) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/e/EByC/${id_colaborador}`);
+            setEspecialidadesData(prevState => ({
+                ...prevState,
+                [id_colaborador]: response.data
+            }));
+        } catch (error) {
+            console.error('Erro ao buscar especialidades', error);
+        }
+    };
+
     useEffect(() => {
         fetchData();
     }, [refresh]);
 
+    useEffect(() => {
+        tableData.forEach(colaborador => {
+            fetchEspecialidades(colaborador.id_colaborador);
+        });
+    }, [tableData]);
 
 
     const filteredData = tableData.filter((colaborador) =>
@@ -76,8 +83,9 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                                     <div className="dropdown">
                                         <div tabIndex={0} role="button" className="btn m-1">especialidades</div>
                                         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                            <li><a>Item 1</a></li>
-                                            <li><a>Item 2</a></li>
+                                        {especialidadesData[colaborador.id_colaborador]?.map((especialidade) => (
+                                                <li key={especialidade.id_especialidade}><a>{especialidade.especialidade}</a></li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </td>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function NavBar({ onOpen, setSearchTerm }) {
+export default function NavBar({ OnOpen, setSearchTerm }) {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -54,7 +54,7 @@ export default function NavBar({ onOpen, setSearchTerm }) {
         </ul>*/}
             </div>
             <div className="navbar-end">
-                <a id="bt1" className="btn mx-2" onClick={() => onOpen('mode2')}>Novo Colaborador</a>
+                <a id="bt1" className="btn mx-2" onClick={() => OnOpen('mode2')}>Novo Colaborador</a>
                 {/*<a id="bt2" className="btn mx-2">Nova Especialidade</a>*/}
             </div>
         </div>

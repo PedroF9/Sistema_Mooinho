@@ -40,3 +40,15 @@ export const searchEspecialidades = async (searchTerm) => {//função que busca 
     const { rows } = await querry('SELECT * FROM especialidade WHERE especialidade ILIKE $1', [`%${searchTerm}%`]);
     return rows;
 }
+
+export const getColaboradorEspecialidade = async (id_colaborador) => {//função que retorna todas as especialidades de um colaborador
+    const { rows } = await querry('SELECT e.*, ce.id_colaborador FROM especialidade e FULL JOIN colaborador_especialidade ce ON e.id_especialidade = ce.id_especialidade WHERE ce.id_colaborador = $1', [id_colaborador]);
+    return rows;
+}
+
+/*export const Tce = async () => {//função que retorna todos os especialidades
+
+    const { rows } = await querry('SELECT e.*, ce.id_colaborador FROM especialidade e FULL JOIN colaborador_especialidade ce ON e.id_especialidade = ce.id_especialidade WHERE ce.id_colaborador = 1');
+    return rows;
+
+}*/

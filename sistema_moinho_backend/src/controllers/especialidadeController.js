@@ -61,4 +61,25 @@ export const searchEspecialidades = async (req, res) => {//função que busca um
         console.error('Erro ao prcurar especialidade', error);
         res.status(500).json({ message: 'interal server error on ctrllr sr!!' })
     }
-}; 
+};
+
+export const getColaboradorEspecialidade = async (req, res) => {//função que busca um especialidade
+    try {
+        const id_colaborador = req.params.id_colaborador;
+        const colaboradorEspecialidades = await especialidadeService.getColaboradorEspecialidade(id_colaborador);
+        res.status(200).json(colaboradorEspecialidades);
+    } catch (error) {
+        console.error('Erro ao buscar especialidades do colaborador', error);
+        res.status(500).json({ message: 'interal server error on ctrllr gt.ce!!' });
+    }
+}
+
+/*export const Tce = async (req, res) => {//função que retorna todos os especialidades
+    try {
+        const colaborador_especialidade = await especialidadeService.Tce();
+        res.status(200).json(colaborador_especialidade);
+    } catch (error) {
+        console.error('Erro ao buscar especialidades', error);
+        res.status(500).json({ message: 'interal server error on ctrllr gt.tce!!' });
+    }
+};*/
