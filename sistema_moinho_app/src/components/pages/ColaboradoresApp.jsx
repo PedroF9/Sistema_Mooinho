@@ -53,14 +53,20 @@ function ColaboradoresApp() {
   return (
 
     <>
+    <body className='bg-default'>
+      
+    
       <NavBar1 OnOpen1={() => handleOpen1('mode1', '')} setSearchTerm={setSearchTerm} />
+      <div>
+        <a id="bt1" className="btn mx-4" onClick={() => handleOpen1('mode1', '')} style={{ float: 'right' }}>Novo Colaborador</a>
+      </div>
       <h1 className="text-3xl font-bold">
         Teste_app!
       </h1>
 
       <Tables1 handleOpen1={handleOpen1} searchTerm={searchTerm} refresh={refresh} />
       <ModalForm1 isOpen1={isOpen1} OnSubmit={handleSubmit} onClose={() => setIsOpen1(false)} mode={modalMode} colaboradorData={colaboradorData} />
-    </>
+    </body></>
   )
 }
 

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ColaboradoresApp from './components/pages/ColaboradoresApp';
-import ColEsp from './components/pages/colEsp';
+import ColEspPage from './components/pages/colEspPage';
+import InventarioPage from './components/pages/inventarioPage';
+
 
 
 function App() {
@@ -8,7 +10,8 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<ColaboradoresApp />} />
-                <Route path="/colEsp" element={<ColEsp />} />
+                <Route path="/colEsp" element={<ColEspPage />} />
+                <Route path="/inv" element={<InventarioPage />} />
                 {/* other routes can be added here */}
             </Routes>
         </Router>

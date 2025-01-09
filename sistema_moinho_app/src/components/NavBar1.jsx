@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
+import '../App.css'
 
-export default function NavBar1({ OnOpen1, setSearchTerm }) {
+export default function NavBar1({ setSearchTerm }) {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -18,45 +19,37 @@ export default function NavBar1({ OnOpen1, setSearchTerm }) {
 
     return (
 
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-primary-100 mb-2">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl">Teste</a>
+                {/**/}
+                <div className="drawer">
+                    <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+                    <div className="drawer-content">
+                        {/* Page content here */}
+                        <label htmlFor="my-drawer" className="btn btn-ghost text-xl drawer-button">Teste</label>
+                    </div>
+                    <div className="drawer-side" style={{ zIndex: 1000 }}>
+                        <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+                        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                            {/* Sidebar content here */}
+                            <li><Link to='/' id="bt1d" className="btn mx-2" >Home</Link></li>
+                            <li><Link to='/colEsp' id="bt2d" className="btn mx-2" >Especialidades</Link></li>
+                            <li><Link to='/inv' id="bt3d" className="btn mx-2" >Inventario</Link></li>
+                        </ul>
+                    </div>
+                </div>
+                {/**/}
             </div>
 
             <div className="join">
                 <div>
                     <div>
-                        <input className="input input-bordered join-item" placeholder="Pesquisar" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                        <input className="input input-bordered join-item navbar-center" placeholder="Pesquisar" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
                     </div>
                 </div>
-                {/*<select className="select select-bordered join-item">
-                    <option disabled selected>Filtro</option>
-                    <option>Pessoa</option>
-                    <option>Especialidade</option>
-                </select>
-
-                <div className="indicator">
-                    <button className="btn join-item" onClick={handleSearch}>Pesquisar</button>
-                </div>*/}
             </div>
 
-            <div className="navbar-center hidden lg:flex">
-                {/*<ul className="menu menu-horizontal px-1">
-        <li><a>Item 1</a></li> 
-        <li>
-            <details>
-            <summary>Parent</summary>
-            <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-            </ul>
-            </details>
-        </li>
-        </ul>*/}
-            </div>
             <div className="navbar-end">
-                <a id="bt1" className="btn mx-2" onClick={() => OnOpen1('mode2')}>Novo Colaborador</a>
-                <Link to='/colEsp' id="bt2" className="btn mx-2" >Especialidades</Link>
             </div>
         </div>
     )

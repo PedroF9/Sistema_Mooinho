@@ -39,6 +39,6 @@ export const deleteInventario = async (id_inventario) => {//função que deleta 
 }
 
 export const searchInventario = async (searchTerm) => {//função que busca um inventario
-    const { rows } = await querry('SELECT * FROM inventario WHERE nome ILIKE $1 OR descricao ILIKE $1 OR tipo ILIKE $1 OR local ILIKE $1', [`%${searchTerm}%`]);
+    const { rows } = await querry('SELECT * FROM inventario WHERE nome ILIKE $1 OR descricao ILIKE $1 OR unidade ILIKE $1 OR tipo ILIKE $1 OR local ILIKE $1', [`%${searchTerm}%`]);
     return rows;
 }                                                        
