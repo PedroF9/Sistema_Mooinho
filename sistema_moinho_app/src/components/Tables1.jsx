@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function Tables({ handleOpen, searchTerm, refresh }) {
+export default function Tables1({ handleOpen1, searchTerm, refresh }) {
 
     const [tableData, setTableData] = useState([]);
     const [especialidadesData, setEspecialidadesData] = useState({});
@@ -52,8 +52,9 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
         if (confirmDelete) try {
             await axios.delete(`http://localhost:3000/c/colaboradores/${id_colaborador}`);
             fetchData();
+            console.log('deleted');
         } catch (error) {
-            console.error('erro ao deletar colaborador em "Tables"', error);
+            console.error('erro ao deletar colaborador em "Tables1"', error);
         }
     }
 
@@ -82,7 +83,7 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                                 <td>
                                     <div className="dropdown">
                                         <div tabIndex={0} role="button" className="btn m-1">especialidades</div>
-                                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                        <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow text-l">
                                         {especialidadesData[colaborador.id_colaborador]?.map((especialidade) => (
                                                 <li key={especialidade.id_especialidade}><a>{especialidade.especialidade}</a></li>
                                             ))}
@@ -90,7 +91,7 @@ export default function Tables({ handleOpen, searchTerm, refresh }) {
                                     </div>
                                 </td>
                                 <td className="px-10">
-                                    <button className="btn rounded w-20 btn-primary mx-3" onClick={() => handleOpen('mode2', colaborador)}>Editar</button>
+                                    <button className="btn rounded w-20 btn-primary mx-3" onClick={() => handleOpen1('mode2', colaborador)}>Editar</button>
 
                                     <button className="btn rounded w-20 mx-3 btn-error" onClick={() => handleDelete(colaborador.id_colaborador)}>Deletar</button>
                                 </td>

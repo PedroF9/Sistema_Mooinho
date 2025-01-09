@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom"
 
-export default function NavBar({ OnOpen, setSearchTerm }) {
+export default function NavBar1({ OnOpen1, setSearchTerm }) {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -25,7 +26,7 @@ export default function NavBar({ OnOpen, setSearchTerm }) {
             <div className="join">
                 <div>
                     <div>
-                        <input className="input input-bordered join-item" placeholder="Pesquisar" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                        <input className="input input-bordered join-item" placeholder="Pesquisar" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
                     </div>
                 </div>
                 {/*<select className="select select-bordered join-item">
@@ -54,8 +55,8 @@ export default function NavBar({ OnOpen, setSearchTerm }) {
         </ul>*/}
             </div>
             <div className="navbar-end">
-                <a id="bt1" className="btn mx-2" onClick={() => OnOpen('mode2')}>Novo Colaborador</a>
-                {/*<a id="bt2" className="btn mx-2">Nova Especialidade</a>*/}
+                <a id="bt1" className="btn mx-2" onClick={() => OnOpen1('mode2')}>Novo Colaborador</a>
+                <Link to='/colEsp' id="bt2" className="btn mx-2" >Especialidades</Link>
             </div>
         </div>
     )

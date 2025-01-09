@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import colaboradorRoute from './routes/colaboradorRoute.js';
 import especialidadeRoute from './routes/especialidadeRoute.js';
+import invetarioRoute from './routes/inventarioRoute.js';
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/c', colaboradorRoute);
 app.use('/e', especialidadeRoute);
+app.use('/i', invetarioRoute)
 
 
 /*app.use('/', (req, res) => {
